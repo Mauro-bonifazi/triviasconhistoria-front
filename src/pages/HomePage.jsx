@@ -9,7 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { getQuestions } from "../api/triviaApi";
 import Feed from "../components/Feed";
-import Loader from "../components/Loader";
+import LoaderList from "../components/Loader";
 import Banner from "../components/Banner";
 import Intro from "../components/Intro";
 import { Link } from "react-router-dom";
@@ -91,7 +91,7 @@ function HomePage() {
           Trivias populares
         </Typography>
         {loading ? (
-          <Loader />
+          <LoaderList count={3} />
         ) : (
           <Feed questions={filteredQuestions.slice(0, 3)} />
         )}

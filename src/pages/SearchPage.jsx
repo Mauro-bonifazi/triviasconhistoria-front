@@ -2,7 +2,7 @@ import { Container, TextField, Typography, Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { getQuestions } from "../api/triviaApi";
 import Feed from "../components/Feed";
-import Loader from "../components/Loader";
+import LoaderList from "../components/Loader";
 
 function HomePage() {
   const [questions, setQuestions] = useState([]);
@@ -56,7 +56,11 @@ function HomePage() {
       >
         Todas Las Trivias
       </Typography>
-      {loading ? <Loader /> : <Feed questions={filteredQuestions} />}
+      {loading ? (
+        <LoaderList count={6} />
+      ) : (
+        <Feed questions={filteredQuestions} />
+      )}
     </Container>
   );
 }

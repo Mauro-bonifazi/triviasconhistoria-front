@@ -1,20 +1,41 @@
 import React from "react";
-import { Skeleton, Box } from "@mui/material";
+import { Skeleton, Box, Stack } from "@mui/material";
+
 function Loader({ width = 300, height = 400 }) {
   return (
-    <Box sx={{ width }}>
-      {/* Simulación de imagen */}
-      <Skeleton variant="rectangular" width="100%" height={height / 2} />
+    <Box
+      sx={{
+        width,
+        borderRadius: 2,
+        boxShadow: 3,
+        p: 2,
+        bgcolor: "#fff",
+      }}
+    >
+      <Stack spacing={1}>
+        {/* Simulación de imagen */}
+        <Skeleton
+          variant="rectangular"
+          width="100%"
+          height={height / 2}
+          sx={{ borderRadius: 2 }}
+        />
 
-      {/* Simulación de título */}
-      <Skeleton />
+        {/* Simulación de título */}
+        <Skeleton variant="text" height={30} />
 
-      {/* Simulación de descripción */}
-      <Skeleton animation="wave" height={20} style={{ marginBottom: 6 }} />
-      <Skeleton animation="wave" height={20} width="80%" />
+        {/* Simulación de descripción */}
+        <Skeleton animation="wave" height={20} />
+        <Skeleton animation="wave" height={20} width="80%" />
 
-      {/* Último esqueleto sin animación */}
-      <Skeleton animation={false} height={20} width="40%" />
+        {/* Simulación de un botón o pie de card */}
+        <Skeleton
+          animation="pulse"
+          height={30}
+          width="40%"
+          sx={{ borderRadius: 1 }}
+        />
+      </Stack>
     </Box>
   );
 }

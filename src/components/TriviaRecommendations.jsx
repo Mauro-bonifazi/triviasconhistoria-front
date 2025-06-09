@@ -37,7 +37,7 @@ function TriviaRecommendations() {
       </Typography>
 
       <Typography variant="body2" sx={{ fontStyle: "italic", mt: 2 }}>
-        "Aprender es el primer paso para transformar la historia."
+        "Aprender es el primer paso para transformar tú historia."
       </Typography>
     </Box>
   );
