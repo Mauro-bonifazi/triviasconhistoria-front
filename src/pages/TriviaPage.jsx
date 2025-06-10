@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { getQuestionsByTitle } from "../api/triviaApi";
 import {
+  CircularProgress,
   Card,
   CardContent,
   Typography,
@@ -42,8 +44,8 @@ function TriviaPage() {
           setError("No se encontraron preguntas para esta trivia.");
         }
       } catch (err) {
-        console.error("Error al obtener las preguntas:", err);
-        setError("No se pudieron cargar las preguntas.");
+        console.error("Error al obtener las trivias:", err);
+        setError("No se pudieron cargar las trivias.");
       }
     };
 
@@ -108,9 +110,21 @@ function TriviaPage() {
   }
 
   if (!questions || questions.length === 0) {
-    return <div>Cargando preguntas...</div>;
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="60vh"
+        flexDirection="column"
+      >
+        <CircularProgress />
+        <Typography variant="h6" sx={{ marginTop: 2 }}>
+          Cargando trivias...
+        </Typography>
+      </Box>
+    );
   }
-
   return (
     <Container>
       <h1>{title}</h1>

@@ -22,7 +22,7 @@ export const getQuestions = async () => {
     const response = await api.get("/questions");
     return response.data;
   } catch (error) {
-    console.error("Error al obtener las preguntas:", error);
+    console.error("Error al obtener las trivias:", error);
     throw error;
   }
 };
@@ -33,7 +33,7 @@ export const getQuestionsByTitle = async (title) => {
     const response = await api.get(`/questions/title/${title}`);
     return response.data;
   } catch (error) {
-    console.error("Error al obtener las preguntas por título:", error);
+    console.error("Error al obtener las trivias por título:", error);
     throw error;
   }
 };
@@ -44,7 +44,7 @@ export const updateQuestion = async (questionId, updatedQuestion) => {
     const response = await api.put(`/questions/${questionId}`, updatedQuestion);
     return response.data;
   } catch (error) {
-    console.error("Error al actualizar la pregunta:", error);
+    console.error("Error al actualizar la trivia:", error);
     throw error;
   }
 };

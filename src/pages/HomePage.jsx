@@ -26,7 +26,7 @@ function HomePage() {
         console.log("Datos recibidos del backend:", data);
         setQuestions(data);
       } catch (error) {
-        console.error("Error al obtener las preguntas:", error);
+        console.error("Error al obtener las trivias:", error);
       } finally {
         setLoading(false); // Se oculta el loader al terminar la carga
       }
@@ -80,7 +80,7 @@ function HomePage() {
           fullWidth
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Ej: Revolución de Mayo, Rosas, Invasiones Inglesas..."
+          placeholder="Ej: Revolución de Mayo, El hundimiento del Titanic, Invasiones Inglesas..."
         />
         <Typography
           variant="h4"

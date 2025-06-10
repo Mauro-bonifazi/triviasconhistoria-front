@@ -56,7 +56,7 @@ const AdminPanel = () => {
       console.log("Datos recibidos del backend:", data);
       setQuestions(data);
     } catch (error) {
-      console.error("Error al obtener las preguntas:", error);
+      console.error("Error al obtener las trivias:", error);
     }
   };
 
