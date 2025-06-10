@@ -27,6 +27,7 @@ const ContactPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Formulario enviado"); //Probar en consola movil
 
     const formData = {
       user_name: contact.user_name,
@@ -68,7 +69,7 @@ const ContactPage = () => {
       .catch((error) => {
         console.error("Error al enviar mensaje:", error);
         setOpen(true);
-        setSnackbarMessage("Error al enviar el mensaje");
+        setSnackbarMessage("Error al enviar el mensaje, Proba nuevamente");
         setSnackbarSeverity("error");
       });
   };
