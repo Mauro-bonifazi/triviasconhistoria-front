@@ -9,7 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { getQuestions } from "../api/triviaApi";
 import Feed from "../components/Feed";
-import LoaderList from "../components/Loader";
+import LoaderList from "../components/LoaderList";
 import Banner from "../components/Banner";
 import Intro from "../components/Intro";
 import { Link } from "react-router-dom";

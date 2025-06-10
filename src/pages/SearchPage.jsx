@@ -2,7 +2,7 @@ import { Container, TextField, Typography, Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { getQuestions } from "../api/triviaApi";
 import Feed from "../components/Feed";
-import LoaderList from "../components/Loader";
+import LoaderList from "../components/LoaderList";
 
 function HomePage() {
   const [questions, setQuestions] = useState([]);
