@@ -53,7 +53,7 @@ function TriviaPage() {
   }, [title]);
   // 2. Hacer scroll automático a la nueva pregunta
   useEffect(() => {
-    if (shownQuestions.length > 0) {
+    if (shownQuestions.length > 1) {
       const lastQuestionIndex = shownQuestions.length - 1;
       const lastQuestionElement = document.getElementById(
         `question-${lastQuestionIndex}`
@@ -120,7 +120,7 @@ function TriviaPage() {
       >
         <CircularProgress />
         <Typography variant="h6" sx={{ marginTop: 2 }}>
-          Cargando trivias...
+          Cargando Trivias...
         </Typography>
       </Box>
     );
