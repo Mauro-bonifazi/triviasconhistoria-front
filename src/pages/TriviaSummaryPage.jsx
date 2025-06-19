@@ -57,7 +57,7 @@ function TriviaSummary({
         animate={{ opacity: 1, y: 0 }}
       >
         <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
-          🎉 ¡Resumen de Trivia! 🎉
+          📜 Resumen Final de la Trivia
         </Typography>
       </motion.div>
 
@@ -166,7 +166,7 @@ function TriviaSummary({
 
       {/* Botones de acción */}
       <Box display="flex" gap={2} mt={3}>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/search" style={{ textDecoration: "none" }}>
           <Button
             variant="outlined"
             color="black"
@@ -182,7 +182,7 @@ function TriviaSummary({
             }}
             onClick={onHome}
           >
-            ver más trivias
+            Ver más trivias
           </Button>
         </Link>
       </Box>
