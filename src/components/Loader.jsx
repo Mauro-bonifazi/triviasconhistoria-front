@@ -1,11 +1,13 @@
 import React from "react";
 import { Skeleton, Box, Stack } from "@mui/material";
 
-function Loader({ width = 300, height = 400 }) {
+function Loader({ height = 400 }) {
   return (
     <Box
       sx={{
-        width,
+        width: "100%", // 👈 Ocupa todo el ancho disponible
+        maxWidth: 300, // 👈 Máximo 300px para desktop
+        margin: "0 auto", // 👈 Centrado horizontal
         borderRadius: 2,
         boxShadow: 3,
         p: 2,
@@ -28,7 +30,7 @@ function Loader({ width = 300, height = 400 }) {
         <Skeleton animation="wave" height={20} />
         <Skeleton animation="wave" height={20} width="80%" />
 
-        {/* Simulación de un botón o pie de card */}
+        {/* Simulación de botón */}
         <Skeleton
           animation="pulse"
           height={30}
