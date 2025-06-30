@@ -5,9 +5,9 @@ function Loader({ height = 400 }) {
   return (
     <Box
       sx={{
-        width: "100%", // 👈 Ocupa todo el ancho disponible
-        maxWidth: 300, // 👈 Máximo 300px para desktop
-        margin: "0 auto", // 👈 Centrado horizontal
+        width: "100%", // Ocupa todo el ancho disponible
+        maxWidth: 300, //  Máximo 300px para desktop
+        margin: "0 auto", // Centrado horizontal
         borderRadius: 2,
         boxShadow: 3,
         p: 2,

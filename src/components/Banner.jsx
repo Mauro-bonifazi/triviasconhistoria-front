@@ -7,7 +7,7 @@ const Banner = () => {
     <Box
       sx={{
         position: "relative",
-        width: "100vw", // 👈 Ocupa todo el ancho de la ventana
+        width: "100vw", // Ocupa todo el ancho de la ventana
         height: "80vh",
         backgroundImage: `url('${bannerImg}')`,
         backgroundSize: "cover",
@@ -17,7 +17,7 @@ const Banner = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        px: { xs: 3, md: 10 }, // 👈 Esto aplica padding horizontal. Si no querés márgenes, podés quitarlo.
+        px: { xs: 3, md: 10 }, //
         margin: 0,
       }}
     >
@@ -31,11 +31,11 @@ const Banner = () => {
           fontFamily: "Playfair Display, serif",
           fontWeight: "bold",
           textAlign: "center",
-          textShadow: "1px 1px 3px rgba(255, 255, 255, 0.3)", // mejora la legibilidad sobre fondos antiguos
+          textShadow: "1px 1px 3px rgba(255, 255, 255, 0.3)", // jora la legibilidad sobre fondos antiguos
           mb: 2,
         }}
       >
-        Trivias con Historias
+        Trivias con Historia
       </Typography>
 
       {/* Frase histórica a la derecha */}
@@ -49,7 +49,7 @@ const Banner = () => {
           maxWidth: "600px",
           alignSelf: "flex-end",
           textShadow: "1px 1px 6px rgba(0,0,0,0.7)",
-          fontStyle: "italic",
+
           color: "#fff",
           fontFamily: "Playfair Display, serif",
         }}

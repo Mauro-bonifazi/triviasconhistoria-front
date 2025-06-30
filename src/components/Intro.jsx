@@ -1,72 +1,68 @@
 import React from "react";
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Typography, Container, Divider } from "@mui/material";
 
 const Intro = () => {
   return (
-    <Box sx={{ py: 6 }}>
+    <Box sx={{ py: { xs: 4, md: 8 } }}>
+      {" "}
       <Container maxWidth="md">
+        {/* 1. Título Principal */}
         <Typography
           variant="h3"
           component="h2"
           gutterBottom
           sx={{
-            fontWeight: "bold",
             textAlign: "center",
-            mb: 6,
-            fontFamily: "Merriweather, serif",
-            color: "#5b4a2f",
           }}
         >
-          ¿Qué es una trivia?
+          Pon a Prueba tu Saber Histórico
         </Typography>
-
+        <Divider sx={{ my: 4, mx: "auto", width: "100px" }} />{" "}
+        {/* Un divisor sutil para separar */}
+        {/* 2. Párrafo de Introducción y Misión */}
         <Typography
-          variant="body1"
-          paragraph
+          variant="h5" // Usamos h5 para un texto con más jerarquía y tamaño
+          component="p"
           sx={{
-            fontSize: { xs: "1.25rem", sm: "1.5rem" }, // Ajusta el tamaño en pantallas pequeñas
-            textAlign: "justify",
-            fontFamily: "Merriweather, serif",
-            color: "#5b4a2f",
-            mb: 4, // Espaciado entre párrafos
+            textAlign: "center",
+            color: "text.secondary", // Usamos el color secundario para un contraste suave
+            mb: 4,
           }}
         >
-          Trivia proviene del latín <i>trivialis</i>, aquello común, accesible a
-          todos. Bajo la premisa de que{" "}
-          <strong>nunca dejamos de aprender</strong>, nuestro objetivo es poner
-          a prueba tus conocimientos a través del juego, invitándote a repasar
-          los hechos más importantes de nuestra historia de forma lúdica, visual
-          y entretenida.
+          ¿Te animas a un desafío? Te invitamos a un viaje entretenido por los
+          grandes momentos de la historia a través de trivias visuales, lúdicas
+          y dinámicas.
         </Typography>
-
-        <Typography
-          variant="body1"
-          paragraph
-          sx={{
-            fontSize: { xs: "1.25rem", sm: "1.5rem" }, // Ajusta el tamaño en pantallas pequeñas
-            textAlign: "justify",
-            color: "#5b4a2f",
-            fontFamily: "Merriweather, serif",
-            mb: 4, // Espaciado entre párrafos
-          }}
-        >
-          Porque conocer el pasado nos ayuda a entender el presente... y
-          construir el futuro.
-        </Typography>
-
+        {/* 3. El Origen y la Filosofía */}
         <Typography
           variant="body1"
           sx={{
-            fontSize: { xs: "1.25rem", sm: "1.5rem" }, // Ajusta el tamaño en pantallas pequeñas
+            textAlign: "center",
+            fontSize: "1.1rem",
+            lineHeight: 1.7,
+            mb: 4,
+          }}
+        >
+          Pero, ¿sabes de dónde viene la idea de "trivia"? La palabra proviene
+          del latín <i>trivialis</i>, aquello que es común y accesible para
+          todos.
+          <br />
+          <b>Esa es exactamente nuestra filosofía.</b> Creemos que el
+          conocimiento no tiene por qué ser complejo o aburrido.
+        </Typography>
+        {/* 4. Frase Final con Énfasis */}
+        <Typography
+          variant="h6"
+          component="p"
+          sx={{
             textAlign: "center",
             fontStyle: "italic",
+            color: "primary.main", // Usamos el color primario del tema para destacarlo
             mt: 4,
-            fontFamily: "Merriweather, serif",
-            color: "#5b4a2f",
           }}
         >
-          Nuestra tarea y mayor recompensa es lograr que más personas se
-          interesen por la historia.
+          Porque conocer el pasado nos ayuda a entender el presente... y a
+          construir el futuro.
         </Typography>
       </Container>
     </Box>

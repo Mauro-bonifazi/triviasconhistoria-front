@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import { Typography, Button, Container, Grid, Card } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Container,
+  Card,
+  Box,
+  useTheme,
+} from "@mui/material";
 import TriviaSummaryPage from "../pages/TriviaSummaryPage";
 import ConfettiEffect from "../components/ConfettiEffect.jsx";
 import FinalMessage from "./FinalMessage.jsx";
 
 const FinalScreen = ({ score, totalQuestions, onRestart }) => {
   const [showSummary, setShowSummary] = useState(false);
+  const theme = useTheme(); // Usamos theme para mantener coherencia
 
-  // Si se activa el resumen, se muestra la página de resumen.
   if (showSummary) {
     return (
       <TriviaSummaryPage
@@ -19,70 +26,61 @@ const FinalScreen = ({ score, totalQuestions, onRestart }) => {
   }
 
   return (
-    <Container style={{ textAlign: "center", padding: "20px" }}>
-      {/* Mostrar confeti si el usuario obtuvo puntaje perfecto */}
+    <Container sx={{ py: 4 }}>
       {score === totalQuestions && <ConfettiEffect active={true} />}
-      <Grid
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px",
-          justifyContent: "center",
-        }}
-      >
+
+      <Box display="flex" justifyContent="center">
         <Card
           sx={{
             width: "100%",
-            maxWidth: "500px",
-            minHeight: "300px",
-            margin: "auto",
-            padding: "15px",
+            maxWidth: "600px",
+            p: { xs: 2, md: 4 },
+            borderRadius: 3,
             boxShadow: 3,
-            borderRadius: "10px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            backgroundColor: "#f9f9f9",
+            textAlign: "center",
+            backgroundColor: theme.palette.background.paper,
           }}
         >
-          <Typography variant="h4" sx={{ marginBottom: 2 }}></Typography>
-          <Typography variant="h6">
+          <Typography variant="h4" sx={{ mb: 2, fontWeight: "bold" }}>
+            🎉 ¡Trivia Finalizada!
+          </Typography>
+
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            Aciertos:
             <span
               style={{
-                fontSize: "50px",
+                fontSize: "32px",
                 fontWeight: "bold",
-                color: "#1976d2",
+                color: theme.palette.primary.main,
+                marginLeft: 8,
               }}
             >
-              {" "}
-              {score}
-            </span>{" "}
-            <span style={{ fontSize: "20px", color: "#1976d2" }}>
-              Aciertos de {totalQuestions}
-            </span>{" "}
+              {score} / {totalQuestions}
+            </span>
           </Typography>
-          {/* Renderizamos el componente FinalMessage */}
+
           <FinalMessage score={score} totalQuestions={totalQuestions} />
 
           <Button
             variant="contained"
-            color="black"
-            sx={{
-              marginTop: 2,
-              maxWidth: "400px",
-              alignSelf: "center",
-              padding: "12px",
-              fontSize: "12px",
-              borderRadius: "20px",
-              backgroundColor: "#64b5f6",
-              color: "white", // Color de fondo azul
-            }}
             onClick={() => setShowSummary(true)}
+            sx={{
+              mt: 3,
+              px: 4,
+              py: 1.5,
+              borderRadius: 5,
+              fontSize: "14px",
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              "&:hover": {
+                backgroundColor: theme.palette.primary.dark,
+              },
+            }}
           >
             Ver estadísticas
           </Button>
         </Card>
-      </Grid>
+      </Box>
     </Container>
   );
 };

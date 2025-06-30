@@ -114,7 +114,7 @@ const AdminPanel = () => {
     try {
       await deleteTrivia(triviaToDelete);
       fetchQuestions(); // Recargar datos después de eliminar
-      setSnackbarMessage("Trivia eliminada exitosamente ❌");
+      setSnackbarMessage("Trivia eliminada exitosamente ✅");
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
     } catch (error) {
@@ -152,7 +152,7 @@ const AdminPanel = () => {
       {/* Formulario para agregar trivias */}
       <FormTrivias
         fetchData={fetchQuestions}
-        setSnackbarMessage={setSnackbarMessage} // Usa este correctamente
+        setSnackbarMessage={setSnackbarMessage}
         setOpenSnackbar={setOpenSnackbar}
         open={open}
         handleClose={handleClose}

@@ -1,4 +1,3 @@
-// components/Navbar.jsx
 import * as React from "react";
 import {
   AppBar,
@@ -15,6 +14,7 @@ import {
   ListItemButton,
   ListItemText,
   Divider,
+  useTheme,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
@@ -25,6 +25,7 @@ import logo from "../assets/logo-trivias.png";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
+  const theme = useTheme();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -59,11 +60,12 @@ export default function Navbar() {
     <>
       <AppBar
         position="static"
-        sx={{ backgroundColor: "#2F2F2F" }}
+        sx={{
+          backgroundColor: "#2F2F2F", // color actual que querés mantener
+        }}
         elevation={0}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          {/* Botón hamburguesa solo visible en móviles */}
           <IconButton
             edge="start"
             color="inherit"
@@ -74,7 +76,6 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
 
-          {/* Logo + Título */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link
               to="/"
@@ -93,16 +94,16 @@ export default function Navbar() {
                   width: 50,
                   borderRadius: "50%",
                   objectFit: "cover",
-                  border: "2px solid #BFA45F",
+                  border: `2px solid ${theme.palette.accent.main}`, // borde dorado del theme
                   mr: 1,
                 }}
               />
               <Typography
                 variant="h6"
                 sx={{
-                  fontFamily: "Cinzel, serif",
+                  fontFamily: "'Cinzel', serif", // Si tenés definido en theme, podés usar theme.typography.logo
                   fontWeight: "bold",
-                  color: "#BFA45F",
+                  color: theme.palette.accent.main, // título dorado del theme
                 }}
               >
                 Trivias con Historia
@@ -110,7 +111,6 @@ export default function Navbar() {
             </Link>
           </Box>
 
-          {/* Iconos de acción en desktop */}
           <Box
             sx={{
               display: { xs: "none", md: "flex" },
@@ -121,7 +121,10 @@ export default function Navbar() {
             <IconButton
               component={Link}
               to="/search"
-              sx={{ color: "white", "&:hover": { color: "#ccc" } }}
+              sx={{
+                color: theme.palette.background.default,
+                "&:hover": { color: theme.palette.accent.main },
+              }}
             >
               <SearchIcon />
             </IconButton>
@@ -129,13 +132,19 @@ export default function Navbar() {
             <IconButton
               component={Link}
               to="/contact"
-              sx={{ color: "white", "&:hover": { color: "#ccc" } }}
+              sx={{
+                color: theme.palette.background.default,
+                "&:hover": { color: theme.palette.accent.main },
+              }}
             >
               <MailOutlineIcon />
             </IconButton>
 
             <Tooltip title="Cuenta">
-              <IconButton onClick={handleOpenMenu} sx={{ color: "white" }}>
+              <IconButton
+                onClick={handleOpenMenu}
+                sx={{ color: theme.palette.background.default }}
+              >
                 <AccountCircleIcon />
               </IconButton>
             </Tooltip>
@@ -157,7 +166,6 @@ export default function Navbar() {
         </Toolbar>
       </AppBar>
 
-      {/* Drawer lateral para móviles */}
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
         <Box
           sx={{ width: 250 }}

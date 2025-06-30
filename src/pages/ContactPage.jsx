@@ -26,9 +26,6 @@ const ContactPage = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Formulario enviado"); //Probar en consola movil
-
     const formData = {
       user_name: contact.user_name,
       user_lastname: contact.user_lastname,

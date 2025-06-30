@@ -59,7 +59,7 @@ function Feed({ questions }) {
                 }}
               >
                 <Button
-                  onClick={() => navigate(`/questions/${trivias.title}`)}
+                  onClick={() => navigate(`/questions/${trivias._id}`)}
                   variant="contained"
                   color="primary"
                   sx={{

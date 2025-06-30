@@ -19,15 +19,13 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* BrowserRouter es el contenedor principal para las rutas */}
         <AuthProvider>
           <BrowserRouter>
             <Header />
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/questions/:title" element={<TriviaPage />} />
-
+              <Route path="/questions/:id" element={<TriviaPage />} />
               <Route path="/trivia/resumen" element={<TriviaSummaryPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/contact" element={<ContactPage />} />

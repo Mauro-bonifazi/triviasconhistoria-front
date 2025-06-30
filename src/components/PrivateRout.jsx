@@ -8,7 +8,7 @@ const PrivateRoute = () => {
   // Si no hay token, forzamos logout por seguridad
   const token = localStorage.getItem("token");
   if (!token || !isUserLogged) {
-    logout(); // opcional si querés limpiar todo
+    logout();
     return <Navigate to="/login" replace />;
   }
 

@@ -1,6 +1,5 @@
-// src/components/ImageUpload.jsx
 import React, { useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import axios from "axios";
 
 const ImageUpload = ({ onUpload }) => {

@@ -20,7 +20,6 @@ const Login = ({ onLogin }) => {
     });
   };
   const handleLogin = async () => {
-    console.log(loginData);
     try {
       const response = await logUser({
         email: loginData.email,
@@ -85,7 +84,6 @@ const Login = ({ onLogin }) => {
           sx={{ mt: 2 }}
         >
           {" "}
-          {/*aca te cambie el boton a tipo button y el login manejarlo en el onclick para que no recargue la pagina  */}
           Login
         </Button>
       </form>

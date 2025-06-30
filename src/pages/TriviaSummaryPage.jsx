@@ -1,35 +1,27 @@
 import React, { useState, useEffect } from "react";
-import TriviaRecommendations from "../components/TriviaRecommendations.jsx";
 import { Link } from "react-router-dom";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from "chart.js";
 import {
-  Button,
   Typography,
   Box,
   Card,
   CircularProgress,
   Divider,
+  Button,
+  useTheme,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import { TwentyFourMpOutlined } from "@mui/icons-material";
+import TriviaRecommendations from "../components/TriviaRecommendations";
 
-// Registrar elementos para Chart.js
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
-function TriviaSummary({
-  score,
-  totalQuestions,
-  timeTaken,
-  breakdown,
-  onRestart,
-  onHome,
-}) {
+function TriviaSummary({ score, totalQuestions, breakdown, onHome }) {
+  const theme = useTheme();
   const [chartData, setChartData] = useState(null);
-  const [loading, setLoading] = useState(true); // Control de carga
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulación de espera para mostrar la animación de carga
     setTimeout(() => {
       const correctAnswers = score;
       const incorrectAnswers = totalQuestions - score;
@@ -39,108 +31,103 @@ function TriviaSummary({
         datasets: [
           {
             data: [correctAnswers, incorrectAnswers],
-            backgroundColor: ["#4CAF50", "#FF3D00"], // Verde y rojo vibrante
-            borderColor: ["#2E7D32", "#D32F2F"],
+            backgroundColor: [
+              theme.palette.success.main,
+              theme.palette.error.main,
+            ],
+            borderColor: [theme.palette.success.dark, theme.palette.error.dark],
             borderWidth: 3,
           },
         ],
       });
 
-      setLoading(false); // Fin de la carga
-    }, 1000);
-  }, [score, totalQuestions]);
+      setLoading(false);
+    }, 800);
+  }, [score, totalQuestions, theme]);
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" p={3}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      px={2}
+      py={4}
+    >
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
-          📜 Resumen Final de la Trivia
+        <Typography
+          variant="h3"
+          gutterBottom
+          fontWeight="bold"
+          textAlign="center"
+        >
+          📜 Resumen Final
         </Typography>
       </motion.div>
 
       <Card
         sx={{
-          maxWidth: 500,
           width: "100%",
-          p: 3,
+          maxWidth: "600px",
+          p: { xs: 2, md: 4 },
+          borderRadius: 3,
           boxShadow: 3,
-          textAlign: "center",
+          backgroundColor: theme.palette.background.paper,
         }}
       >
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          Puntaje:{" "}
-          <span
-            style={{ fontSize: "22px", fontWeight: "bold", color: "#1976D2" }}
-          >
+        <Typography variant="h5" gutterBottom textAlign="center">
+          Tu Puntaje:
+          <Box component="span" color="primary.main" fontWeight="bold" ml={1}>
             {score} / {totalQuestions}
-          </span>
+          </Box>
         </Typography>
 
-        {/* Mostrar tiempo total si se tiene el dato */}
-        {timeTaken && (
-          <Typography variant="body1" sx={{ mb: 2 }}>
-            Tiempo total: {timeTaken} minutos
-          </Typography>
-        )}
-
-        {/* Gráfico de resultados */}
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-        >
+        <Box sx={{ my: 3, display: "flex", justifyContent: "center" }}>
           {loading ? (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "200px",
-              }}
-            >
-              <CircularProgress size={50} color="primary" />
-            </Box>
+            <CircularProgress size={50} color="primary" />
           ) : (
             chartData && (
-              <Box sx={{ maxWidth: 300, mx: "auto" }}>
+              <Box sx={{ maxWidth: 300 }}>
                 <Doughnut data={chartData} />
               </Box>
             )
           )}
-        </motion.div>
+        </Box>
+
         <Typography
-          variant="body2"
-          sx={{ mt: 2, color: "text.secondary", fontStyle: "italic" }}
+          variant="body1"
+          textAlign="center"
+          color="text.secondary"
+          fontStyle="italic"
         >
           Tenés una efectividad del{" "}
-          <strong>{Math.round((score / totalQuestions) * 100)}%</strong>
-          <br></br>
-          <strong>Gracias por jugar! Te esperamos pronto.</strong>
+          <strong>{Math.round((score / totalQuestions) * 100)}%</strong>.
+          <br />
+          <strong>¡Gracias por jugar!</strong>
         </Typography>
 
-        <Divider sx={{ my: 2 }} />
+        <Divider sx={{ my: 3 }} />
 
-        {/* Desglose de preguntas */}
         {breakdown && breakdown.length > 0 && (
-          <Box
-            textAlign="left"
-            sx={{ maxHeight: 200, overflowY: "auto", mb: 2 }}
-          >
-            <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+          <Box sx={{ maxHeight: 200, overflowY: "auto" }}>
+            <Typography variant="h6" gutterBottom>
               Detalle de preguntas:
             </Typography>
             {breakdown.map((item, index) => (
-              <Box key={index} sx={{ mb: 1 }}>
-                <Typography variant="body2">
+              <Box key={index} mb={2}>
+                <Typography variant="subtitle2">
                   <strong>Pregunta:</strong> {item.question}
                 </Typography>
                 <Typography
                   variant="body2"
-                  color={
-                    item.yourAnswer === item.correctAnswer ? "green" : "red"
-                  }
+                  sx={{
+                    color:
+                      item.yourAnswer === item.correctAnswer
+                        ? theme.palette.success.main
+                        : theme.palette.error.main,
+                  }}
                 >
                   <strong>Tu respuesta:</strong> {item.yourAnswer}
                 </Typography>
@@ -154,31 +141,30 @@ function TriviaSummary({
                     {item.resource}
                   </Typography>
                 )}
-                <Divider sx={{ my: 0.5 }} />
+                <Divider sx={{ mt: 1 }} />
               </Box>
             ))}
           </Box>
         )}
 
-        {/* Sección de recomendaciones generales */}
         <TriviaRecommendations />
       </Card>
 
-      {/* Botones de acción */}
-      <Box display="flex" gap={2} mt={3}>
+      {/* Botón de volver */}
+      <Box mt={4}>
         <Link to="/search" style={{ textDecoration: "none" }}>
           <Button
-            variant="outlined"
-            color="black"
+            variant="contained"
             sx={{
-              marginTop: 2,
-              maxWidth: "400px",
-              alignSelf: "center",
-              padding: "12px",
-              fontSize: "12px",
-              borderRadius: "20px",
-              backgroundColor: "#64b5f6",
-              color: "white", // Color
+              px: 4,
+              py: 1.5,
+              borderRadius: "30px",
+              fontWeight: "bold",
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              "&:hover": {
+                backgroundColor: theme.palette.primary.dark,
+              },
             }}
             onClick={onHome}
           >

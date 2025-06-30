@@ -1,9 +1,11 @@
 import React from "react";
-import { Box, Typography, Container, Link } from "@mui/material";
+import { Box, Typography, Container, Link, useTheme } from "@mui/material";
 import RedSocial from "./RedSocial";
 import logo from "../assets/logo-trivias.png";
 
 function Footer() {
+  const theme = useTheme(); // usamos el theme
+
   return (
     <Box
       component="footer"
@@ -38,9 +40,9 @@ function Footer() {
             my: 2,
             "& svg": {
               transition: "color 0.3s ease",
-              color: "#f2f2f2",
+              color: theme.palette.background.default, // iconos claros
               "&:hover": {
-                color: "#d9916c",
+                color: theme.palette.accent.main, // dorado/ocre del theme
               },
               cursor: "pointer",
               fontSize: { xs: 28, sm: 32 },
@@ -55,8 +57,8 @@ function Footer() {
           variant="body2"
           sx={{
             mt: 2,
-            fontFamily: "'Merriweather', serif",
-            color: "#f2f2f2",
+            fontFamily: theme.typography.fontFamily,
+            color: theme.palette.background.default,
           }}
         >
           Diseñado y desarrollado por{" "}
@@ -75,8 +77,8 @@ function Footer() {
           variant="body2"
           sx={{
             mt: 1,
-            fontFamily: "'Merriweather', serif",
-            color: "#f2f2f2",
+            fontFamily: theme.typography.fontFamily,
+            color: theme.palette.background.default,
           }}
         >
           © {new Date().getFullYear()}{" "}

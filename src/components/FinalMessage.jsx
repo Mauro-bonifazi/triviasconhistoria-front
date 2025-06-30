@@ -56,10 +56,6 @@ const FinalMessage = ({ score, totalQuestions }) => {
 
   return (
     <Box textAlign="center" mt={4}>
-      <Typography variant="h4" fontWeight="bold" mb={2}>
-        🎉 ¡Resumen final!
-      </Typography>
-
       <Box
         component={motion.img}
         src={randomImage}
