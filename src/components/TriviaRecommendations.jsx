@@ -1,45 +1,91 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Paper, Divider, Stack, Link } from "@mui/material";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import PodcastsIcon from "@mui/icons-material/Podcasts";
+import MuseumIcon from "@mui/icons-material/Museum";
 
 function TriviaRecommendations() {
   return (
-    <Box sx={{ my: 4 }}>
-      <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 2 }}>
-        ¿Te gustó esta trivia? ¡Seguí aprendiendo para transformar el mundo!
+    <Paper
+      elevation={2}
+      sx={{
+        p: { xs: 2, sm: 3 }, // Padding responsivo
+        my: 4,
+        border: "1px solid",
+        borderColor: "primary.main", // Borde con el color primario del tema
+        backgroundColor: "background.default",
+      }}
+    >
+      <Typography
+        variant="h5"
+        component="h3"
+        color="secondary.main" // Usamos el marrón oscuro del tema
+        sx={{ fontWeight: "bold", textAlign: "center", mb: 2 }}
+      >
+        Expandí tus Horizontes
       </Typography>
 
-      <Typography variant="body2" sx={{ mb: 1 }}>
-        📚 Leé, explorá y descubrí más sobre nuestra historia en{" "}
-        <a
-          href="https://elhistoriador.com.ar/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          El Historiador
-        </a>
-        .
-      </Typography>
+      <Divider />
 
-      <Typography variant="body2" sx={{ mb: 1 }}>
-        🎧 Escuchá grandes relatos históricos en{" "}
-        <a
-          href="https://open.spotify.com/show/4u1nTj7G2CaNT7pZCntXvr"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Historia en Podcast
-        </a>
-        .
-      </Typography>
+      {/* 3. 'Stack' para organizar las recomendaciones verticalmente con espaciado */}
+      <Stack spacing={2.5} sx={{ mt: 3 }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {/* 4. Íconos para dar un golpe visual, usando el color de acento (dorado) */}
+          <MenuBookIcon sx={{ color: "accent.main", mr: 1.5 }} />
+          <Typography variant="body1" color="text.primary">
+            {/* 5. Uso el componente 'Link' de MUI para coherencia */}
+            Leé más sobre nuestra historia en{" "}
+            <Link
+              href="https://elhistoriador.com.ar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="secondary.main"
+              underline="hover"
+            >
+              El Historiador
+            </Link>
+            .
+          </Typography>
+        </Box>
 
-      <Typography variant="body2" sx={{ mb: 1 }}>
-        🏛️ Visitá museos virtuales, leé, jugá y nunca dejes de aprender.
-      </Typography>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <PodcastsIcon sx={{ color: "accent.main", mr: 1.5 }} />
+          <Typography variant="body1" color="text.primary">
+            Escuchá grandes relatos en{" "}
+            <Link
+              href="https://open.spotify.com/show/4u1nTj7G2CaNT7pZCntXvr"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="secondary.main"
+              underline="hover"
+            >
+              Historia en Podcast
+            </Link>
+            .
+          </Typography>
+        </Box>
 
-      <Typography variant="body2" sx={{ fontStyle: "italic", mt: 2 }}>
-        "Aprender es el primer paso para transformar tú historia."
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <MuseumIcon sx={{ color: "accent.main", mr: 1.5 }} />
+          <Typography variant="body1" color="text.primary">
+            Visitá museos, leé, jugá y nunca dejes de aprender.
+          </Typography>
+        </Box>
+      </Stack>
+
+      {/* 6. La cita final, estilizada y centrada para darle más peso */}
+      <Typography
+        variant="body2"
+        sx={{
+          fontStyle: "italic",
+          mt: 4,
+          textAlign: "center",
+          color: "text.secondary",
+        }}
+      >
+        "Aprender es el primer paso para transformar tu historia."
       </Typography>
-    </Box>
+    </Paper>
   );
 }
 

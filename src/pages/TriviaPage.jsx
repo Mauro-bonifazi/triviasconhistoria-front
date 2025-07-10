@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getQuestionById } from "../api/triviaApi";
+import { getTriviaBySlug } from "../api/triviaApi";
 import {
   CircularProgress,
   Card,
@@ -11,7 +11,7 @@ import {
   Container,
   Box,
   Divider,
-  useTheme, // ¡Importamos el hook para acceder al tema!
+  useTheme,
 } from "@mui/material";
 import { CheckCircle, Cancel } from "@mui/icons-material";
 import ProgressIndicator from "../components/ProgressIndicator";
@@ -19,7 +19,7 @@ import FinalScreen from "../components/FinalScreen";
 import { Helmet } from "react-helmet-async";
 
 function TriviaPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const theme = useTheme();
   const [questions, setQuestions] = useState([]);
   const [title, setTitle] = useState("");
@@ -31,16 +31,20 @@ function TriviaPage() {
   const [feedback, setFeedback] = useState({});
   const [introduction, setIntroduction] = useState("");
   const [triviaFinished, setTriviaFinished] = useState(false);
+  const optimizeCloudinaryUrl = (url, options = "q_auto,f_auto,w_800") => {
+    if (!url.includes("/upload/")) return url;
+    return url.replace("/upload/", `/upload/${options}/`);
+  };
 
   useEffect(() => {
     const fetchTrivia = async () => {
       try {
-        const trivia = await getQuestionById(id);
+        const trivia = await getTriviaBySlug(slug);
         if (trivia && trivia.questions?.length > 0) {
           setQuestions(trivia.questions);
           setIntroduction(trivia.introduction);
           setTitle(trivia.title);
-          setMainImage(trivia.mainImage || trivia.questions[0].image); // <-- 3. GUARDAMOS LA IMAGEN
+          setMainImage(trivia.mainImage || trivia.questions[0].image);
           setShownQuestions([trivia.questions[0]]);
         } else {
           setError("No se encontraron preguntas para esta trivia.");
@@ -52,7 +56,7 @@ function TriviaPage() {
     };
 
     fetchTrivia();
-  }, [id]);
+  }, [slug]);
 
   useEffect(() => {
     if (shownQuestions.length > 1) {
@@ -161,7 +165,7 @@ function TriviaPage() {
 
           <meta
             property="og:url"
-            content={`https://triviasconhistoria-front.vercel.app/trivia/${id}`}
+            content={`https://triviasconhistoria-front.vercel.app/trivia/${slug}`}
           />
 
           {/* Twitter Card */}
@@ -250,10 +254,11 @@ function TriviaPage() {
                 <CardMedia
                   component="img"
                   image={
-                    question.image ||
+                    optimizeCloudinaryUrl(question.image) ||
                     "https://via.placeholder.com/600x350.png?text=Sin+imagen"
                   }
                   alt={question.question}
+                  loading="lazy"
                   sx={{
                     objectFit: "contain",
                     width: "100%",

@@ -18,6 +18,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Stack,
 } from "@mui/material";
 import { getQuestions, deleteTrivia } from "../../api/triviaApi";
 
@@ -35,6 +36,7 @@ const AdminPanel = () => {
 
   const [trivia, setTrivia] = useState({
     title: "",
+    slug: "",
     introduction: "",
     image: "",
     description: "",
@@ -67,6 +69,7 @@ const AdminPanel = () => {
   const handleClickOpen = () => {
     setTrivia({
       title: "",
+      slug: "",
       introduction: "",
       image: "",
       description: "",
@@ -115,7 +118,7 @@ const AdminPanel = () => {
       await deleteTrivia(triviaToDelete);
       fetchQuestions(); // Recargar datos después de eliminar
       setSnackbarMessage("Trivia eliminada exitosamente ✅");
-      setSnackbarSeverity("error");
+      setSnackbarSeverity("success");
       setOpenSnackbar(true);
     } catch (error) {
       console.error("Error al eliminar la trivia", error);
@@ -191,23 +194,24 @@ const AdminPanel = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleUpdateItem(trivia)}
-                    style={{ marginRight: "8px" }}
-                  >
-                    Editar
-                  </Button>
-                  <br />
-                  <br />
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={() => handleDelete(trivia._id)}
-                  >
-                    Eliminar
-                  </Button>
+                  <Stack direction="column" spacing={1}>
+                    {" "}
+                    {/* spacing={1} equivale a 8px */}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleUpdateItem(trivia)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => handleDelete(trivia._id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </Stack>
                 </TableCell>
               </TableRow>
             ))}

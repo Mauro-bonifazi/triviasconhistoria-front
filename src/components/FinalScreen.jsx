@@ -13,7 +13,7 @@ import FinalMessage from "./FinalMessage.jsx";
 
 const FinalScreen = ({ score, totalQuestions, onRestart }) => {
   const [showSummary, setShowSummary] = useState(false);
-  const theme = useTheme(); // Usamos theme para mantener coherencia
+  const theme = useTheme(); // Uso theme para mantener coherencia
 
   if (showSummary) {
     return (

@@ -27,6 +27,7 @@ const FormTrivias = ({
 
   const [triviaData, setTriviaData] = useState({
     title: "",
+    slug: "",
     description: "",
     introduction: "",
     image: "",
@@ -40,26 +41,26 @@ const FormTrivias = ({
       },
     ],
   });
+
   useEffect(() => {
     if (trivia) {
       setTriviaData(trivia);
     }
   }, [trivia, open]);
 
-  // Manejo de cambios en campos generales
+  const isEdit = Boolean(trivia?._id);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTriviaData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Manejo de cambios en una pregunta específica
   const handleQuestionChange = (index, field, value) => {
     const updatedQuestions = [...triviaData.questions];
     updatedQuestions[index] = { ...updatedQuestions[index], [field]: value };
     setTriviaData((prev) => ({ ...prev, questions: updatedQuestions }));
   };
 
-  // Manejo de cambios en una opción específica de una pregunta
   const handleOptionChange = (qIndex, optionIndex, value) => {
     const updatedQuestions = [...triviaData.questions];
     const updatedOptions = [...updatedQuestions[qIndex].options];
@@ -71,7 +72,6 @@ const FormTrivias = ({
     setTriviaData((prev) => ({ ...prev, questions: updatedQuestions }));
   };
 
-  // Agregar una nueva pregunta
   const addQuestion = () => {
     setTriviaData((prev) => ({
       ...prev,
@@ -88,7 +88,6 @@ const FormTrivias = ({
     }));
   };
 
-  // Eliminar una pregunta (si fuera necesario)
   const removeQuestion = (index) => {
     setTriviaData((prev) => ({
       ...prev,
@@ -96,49 +95,44 @@ const FormTrivias = ({
     }));
   };
 
-  // Enviar datos al backend
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (trivia._id !== undefined) {
-      updateQuestion(trivia._id, triviaData);
 
-      setSnackbarMessage("Trivia editada exitosamente ✅");
-      setSnackbarSeverity("success");
-      handleClose();
-      fetchData();
-      return;
-    }
     try {
-      await createTrivia(triviaData);
+      if (isEdit) {
+        await updateQuestion(trivia._id, triviaData);
+        setSnackbarMessage("Trivia editada exitosamente ✅");
+      } else {
+        await createTrivia(triviaData);
+        setSnackbarMessage("Trivia creada exitosamente ✅");
+      }
 
-      setSnackbarMessage("Trivia creada exitosamente ✅");
       setSnackbarSeverity("success");
       setOpenSnackbar(true);
+      handleClose();
+      fetchData();
 
-      // Resetear el formulario
-      setTriviaData({
-        title: "",
-        description: "",
-        introduction: "",
-        image: "",
-        questions: [
-          {
-            question: "",
-            options: ["", "", ""],
-            answer: "",
-            category: "",
-            image: "",
-          },
-        ],
-      });
-
-      setTimeout(() => {
-        setOpen(false);
-        setMessage(null);
-        if (typeof fetchData === "function") fetchData();
-      }, 1500);
+      // Resetear formulario solo si se creó
+      if (!isEdit) {
+        setTriviaData({
+          title: "",
+          slug: "",
+          description: "",
+          introduction: "",
+          image: "",
+          questions: [
+            {
+              question: "",
+              options: ["", "", ""],
+              answer: "",
+              category: "",
+              image: "",
+            },
+          ],
+        });
+      }
     } catch (error) {
-      setSnackbarMessage("Error al crear la trivia ❌");
+      setSnackbarMessage("Error al guardar la trivia ❌");
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
     }
@@ -148,12 +142,13 @@ const FormTrivias = ({
     <Box>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
-          {triviaData._id ? "Editar Trivia" : "Crear Trivia 🎉"}
+          {isEdit ? "Editar Trivia" : "Crear Trivia 🎉"}
         </DialogTitle>
         <form onSubmit={handleSubmit}>
           <DialogContent>
             <DialogContentText>
-              Completa los siguientes campos para crear la trivia:
+              Completa los siguientes campos para {isEdit ? "editar" : "crear"}{" "}
+              la trivia:
             </DialogContentText>
 
             {message && <Alert severity={message.type}>{message.text}</Alert>}
@@ -167,6 +162,28 @@ const FormTrivias = ({
               onChange={handleChange}
               required
             />
+
+            {isEdit && (
+              <TextField
+                margin="dense"
+                label="Slug (ruta amigable)"
+                fullWidth
+                name="slug"
+                value={triviaData.slug || ""}
+                onChange={(e) =>
+                  setTriviaData((prev) => ({
+                    ...prev,
+                    slug: e.target.value
+                      .toLowerCase()
+                      .trim()
+                      .replace(/\s+/g, "-")
+                      .replace(/[^a-z0-9\-]/g, ""),
+                  }))
+                }
+                helperText="Usado en la URL (solo letras, números y guiones)"
+              />
+            )}
+
             <TextField
               margin="dense"
               label="Descripción"
@@ -176,7 +193,7 @@ const FormTrivias = ({
               onChange={handleChange}
               required
               multiline
-              rows={4} // Podés ajustar la cantidad de filas que ves
+              rows={4}
             />
 
             <TextField
@@ -188,7 +205,7 @@ const FormTrivias = ({
               onChange={handleChange}
               required
               multiline
-              rows={6} // Podés poner más filas acá si querés, ya que puede ser un texto más largo
+              rows={6}
             />
 
             <ImageUpload
@@ -211,11 +228,13 @@ const FormTrivias = ({
                     }
                     required
                   />
+
                   <ImageUpload
                     onUpload={(url) =>
                       handleQuestionChange(index, "image", url)
                     }
                   />
+
                   {q.image && (
                     <img
                       src={q.image}
@@ -238,6 +257,7 @@ const FormTrivias = ({
                       required
                     />
                   ))}
+
                   <TextField
                     margin="dense"
                     label="Respuesta Correcta"
@@ -248,6 +268,7 @@ const FormTrivias = ({
                     }
                     required
                   />
+
                   <TextField
                     margin="dense"
                     label="Categoría"
@@ -257,7 +278,7 @@ const FormTrivias = ({
                       handleQuestionChange(index, "category", e.target.value)
                     }
                   />
-                  {/* Puedes agregar un botón para eliminar esta pregunta si lo deseas */}
+
                   {triviaData.questions.length > 1 && (
                     <Button
                       variant="outlined"
@@ -278,7 +299,7 @@ const FormTrivias = ({
           <DialogActions>
             <Button onClick={handleClose}>Cancelar</Button>
             <Button type="submit" variant="contained">
-              {triviaData._id ? "Editar" : "Crear Trivia"}
+              {isEdit ? "Editar" : "Crear Trivia"}
             </Button>
           </DialogActions>
         </form>

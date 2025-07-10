@@ -27,6 +27,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/questions/:id" element={<TriviaPage />} />
               <Route path="/trivia/resumen" element={<TriviaSummaryPage />} />
+              <Route path="/trivia/:slug" element={<TriviaPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<Login />} />

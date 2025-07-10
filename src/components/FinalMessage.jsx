@@ -1,22 +1,24 @@
+// FinalMessage.jsx - Versión Integrada
 import React from "react";
 import { motion } from "framer-motion";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Paper } from "@mui/material";
 
+// El objeto resultContent y la función getResultContent permanecen igual...
 const resultContent = {
   perfect: {
     images: [
       "https://media1.tenor.com/m/Jd1zpmFhr04AAAAC/san-martin-general-san-martin.gif",
       "https://res.cloudinary.com/dzhlkmrq0/image/upload/v1746566039/0003469125_10_fd7izf.jpg",
     ],
-    message:
-      "¡Felicitaciones! Respondiste todo correctamente. Sos un verdadero prócer.",
+    message: "¡Excelente! Tu conocimiento es digno de un monumento.",
   },
   veryGood: {
     images: [
+      "https://media1.tenor.com/m/0K_b4aofN8MAAAAC/thumbs-up-napoleon.gif",
       "https://res.cloudinary.com/dzhlkmrq0/image/upload/v1745969165/guemes-mbien_e0u9n9.png",
     ],
     message:
-      "¡Alta puntería histórica! Estás a un decreto de ser héroe nacional.",
+      "¡Impresionante! Sabés más que la Billiken. Tu esfuerzo da sus frutos.",
   },
   good: {
     images: [
@@ -27,18 +29,18 @@ const resultContent = {
   },
   low: {
     images: [
-      "https://media1.tenor.com/m/0K_b4aofN8MAAAAC/thumbs-up-napoleon.gif",
       "https://media1.tenor.com/m/rxvHL9J8t0oAAAAd/napoleon-bonaparte-singing.gif",
+      "https://media1.tenor.com/m/dzLhVjemC3UAAAAd/pope-francis-pray.gif",
     ],
-    message: "¡Casi te mandamos al billete de 10! ¡A seguir intentando!",
+    message:
+      "¡No te desanimes! Hasta San Martín tuvo que cruzar los Andes. Un repaso más y lo lográs.",
   },
   bad: {
     images: [
       "https://res.cloudinary.com/dzhlkmrq0/image/upload/v1745969167/sarmiento-mal_ohsr0r.png",
-      "https://media1.tenor.com/m/dzLhVjemC3UAAAAd/pope-francis-pray.gif",
-      "https://media1.tenor.com/m/9KdFR2mtQd4AAAAd/ussr-communsim.gif",
     ],
-    message: "¡Ay! Ni Sarmiento te aprueba este intento. A repasar, ciudadano.",
+    message:
+      "¡Ay! Ni Sarmiento te aprueba este intento. ¡Vamos a repasar y la próxima sale mejor!",
   },
 };
 
@@ -55,7 +57,24 @@ const FinalMessage = ({ score, totalQuestions }) => {
   const randomImage = images[Math.floor(Math.random() * images.length)];
 
   return (
-    <Box textAlign="center" mt={4}>
+    // 2. Usamos 'Paper' como contenedor principal para darle jerarquía
+    <Paper
+      elevation={3}
+      sx={{
+        p: { xs: 2, sm: 3 },
+        mt: 4,
+        textAlign: "center",
+        border: "1px solid",
+        borderColor: "primary.light",
+      }}
+    >
+      {/* 3. Mostramos el puntaje de forma clara y con color condicional */}
+
+      {/* 4. El mensaje de aliento ahora usa la tipografía y color del tema */}
+      <Typography variant="h6" color="text.secondary" sx={{ mt: 1 }}>
+        {message}
+      </Typography>
+
       <Box
         component={motion.img}
         src={randomImage}
@@ -66,15 +85,14 @@ const FinalMessage = ({ score, totalQuestions }) => {
         sx={{
           width: "90%",
           maxWidth: 300,
-          borderRadius: 2,
+          borderRadius: (theme) => theme.shape.borderRadius, // 5. Usamos el radio de borde del tema
           mx: "auto",
+          my: 3,
+          border: "3px solid", // 6. Borde con el color de acento
+          borderColor: "accent.main",
         }}
       />
-
-      <Typography variant="body1" sx={{ mt: 2, fontWeight: "bold" }}>
-        {message}
-      </Typography>
-    </Box>
+    </Paper>
   );
 };
 

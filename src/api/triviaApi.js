@@ -47,6 +47,17 @@ export const getQuestionById = async (id) => {
     throw error;
   }
 };
+// Obtener trivia por slug (con axios y baseURL)
+export const getTriviaBySlug = async (slug) => {
+  try {
+    console.log(`Fetching trivia by slug: ${slug}`);
+    const response = await api.get(`/questions/slug/${slug}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching trivia by slug:", error);
+    throw error;
+  }
+};
 
 // Actualizar una pregunta
 export const updateQuestion = async (questionId, updatedQuestion) => {

@@ -5,6 +5,10 @@ import axios from "axios";
 const ImageUpload = ({ onUpload }) => {
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState(null);
+  const optimizeCloudinaryUrl = (url, options = "q_auto,f_auto,w_800") => {
+    if (!url.includes("/upload/")) return url; // seguridad por si es otra URL
+    return url.replace("/upload/", `/upload/${options}/`);
+  };
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -23,7 +27,8 @@ const ImageUpload = ({ onUpload }) => {
         formData
       );
       const imageUrl = response.data.secure_url;
-      onUpload(imageUrl); // lo envía al padre
+      const optimizedUrl = optimizeCloudinaryUrl(imageUrl);
+      onUpload(optimizedUrl); // lo envía al padre optimizada
     } catch (error) {
       console.error("Error al subir imagen", error);
     } finally {
