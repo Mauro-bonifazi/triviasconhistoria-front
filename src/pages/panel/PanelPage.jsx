@@ -30,7 +30,7 @@ const AdminPanel = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [setOpenSnackbar] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [triviaToDelete, setTriviaToDelete] = useState(null);
 
@@ -95,7 +95,7 @@ const AdminPanel = () => {
   // Filtrar trivias por título
   const filteredQuestions = questions
     ? questions.filter((q) =>
-        q.title.toLowerCase().includes(searchTerm.toLowerCase())
+        q.title.toLowerCase().includes(searchTerm.toLowerCase()),
       )
     : [];
 

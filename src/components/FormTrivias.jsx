@@ -23,8 +23,6 @@ const FormTrivias = ({
   setOpen,
   trivia,
 }) => {
-  const [message, setMessage] = useState(null);
-
   const [triviaData, setTriviaData] = useState({
     title: "",
     slug: "",
@@ -151,8 +149,6 @@ const FormTrivias = ({
               la trivia:
             </DialogContentText>
 
-            {message && <Alert severity={message.type}>{message.text}</Alert>}
-
             <TextField
               margin="dense"
               label="Título"
@@ -177,7 +173,7 @@ const FormTrivias = ({
                       .toLowerCase()
                       .trim()
                       .replace(/\s+/g, "-")
-                      .replace(/[^a-z0-9\-]/g, ""),
+                      .replace(/[^a-z0-9-]/g, ""),
                   }))
                 }
                 helperText="Usado en la URL (solo letras, números y guiones)"
