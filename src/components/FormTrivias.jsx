@@ -17,7 +17,7 @@ const FormTrivias = ({
   fetchData,
   setSnackbarSeverity,
   setSnackbarMessage,
-  setOpenSnackbar,
+  setOpenSnackbar = () => {}, // <--- Agregamos "= () => {}" aquí
   open,
   handleClose,
   setOpen,
@@ -93,6 +93,8 @@ const FormTrivias = ({
     }));
   };
 
+  // ... (mismo código arriba hasta el handleSubmit)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -110,7 +112,6 @@ const FormTrivias = ({
       handleClose();
       fetchData();
 
-      // Resetear formulario solo si se creó
       if (!isEdit) {
         setTriviaData({
           title: "",
@@ -130,12 +131,28 @@ const FormTrivias = ({
         });
       }
     } catch (error) {
-      setSnackbarMessage("Error al guardar la trivia ❌");
+      console.error("DETALLE DEL ERROR:", error.response?.data);
+
+      // Armamos un mensaje claro según lo que responda el backend
+      const errorMsg =
+        error.response?.data === "Forbidden"
+          ? "No tienes permiso (Token inválido o expirado) 🔐"
+          : "Error al guardar la trivia ❌";
+
+      setSnackbarMessage(errorMsg);
       setSnackbarSeverity("error");
-      setOpenSnackbar(true);
+
+      // Solo intentamos abrir el snackbar si la función existe
+      if (typeof setOpenSnackbar === "function") {
+        setOpenSnackbar(true);
+      } else {
+        // Fallback por si el componente padre no pasó la función
+        alert(errorMsg);
+      }
     }
   };
 
+  // ... (resto del código igual)
   return (
     <Box>
       <Dialog open={open} onClose={handleClose}>

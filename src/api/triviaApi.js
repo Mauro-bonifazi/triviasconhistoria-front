@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://triviasconhistoria-back.onrender.com/api";
+const API_URL = "https://triviasconhistoria-back.vercel.app/api";
 
 // Creamos una instancia de Axios
 const api = axios.create({
@@ -93,10 +93,11 @@ export const createTrivia = async (newTrivia) => {
 };
 
 //  Login de usuario
+
 export const login = (loginData) => {
   return axios.post(
-    "https://triviasconhistoria-back.onrender.com/auth/login",
-    loginData
+    "https://triviasconhistoria-back.vercel.app/auth/login",
+    loginData,
   );
 };
 
