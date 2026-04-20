@@ -30,7 +30,7 @@ const AdminPanel = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
-  const [setOpenSnackbar] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [triviaToDelete, setTriviaToDelete] = useState(null);
 
