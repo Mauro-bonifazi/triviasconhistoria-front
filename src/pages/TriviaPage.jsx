@@ -31,6 +31,7 @@ function TriviaPage() {
   const [feedback, setFeedback] = useState({});
   const [introduction, setIntroduction] = useState("");
   const [triviaFinished, setTriviaFinished] = useState(false);
+  const [description, setDescription] = useState("");
   const optimizeCloudinaryUrl = (url, options = "q_auto,f_auto,w_800") => {
     if (!url.includes("/upload/")) return url;
     return url.replace("/upload/", `/upload/${options}/`);
@@ -42,6 +43,7 @@ function TriviaPage() {
         const trivia = await getTriviaBySlug(slug);
         if (trivia && trivia.questions?.length > 0) {
           setQuestions(trivia.questions);
+          setDescription(trivia.description);
           setIntroduction(trivia.introduction);
           setTitle(trivia.title);
           setMainImage(trivia.mainImage || trivia.questions[0].image);
@@ -62,7 +64,7 @@ function TriviaPage() {
     if (shownQuestions.length > 1) {
       const lastQuestionIndex = shownQuestions.length - 1;
       const lastQuestionElement = document.getElementById(
-        `question-${lastQuestionIndex}`
+        `question-${lastQuestionIndex}`,
       );
 
       if (lastQuestionElement) {
@@ -147,7 +149,7 @@ function TriviaPage() {
             name="description"
             content={`Poné a prueba tus conocimientos sobre ${title}. ${introduction.substring(
               0,
-              120
+              120,
             )}... Jugá, aprendé y descubrí datos fascinantes con esta trivia histórica.`}
           />
 
@@ -196,13 +198,30 @@ function TriviaPage() {
             demuestra todo lo que sabes!
           </Typography>
         </Box>
-
         <Box mb={6}>
-          <Typography variant="h4" gutterBottom>
-            Reseña Histórica:
+          <Typography
+            variant="body1" // Cambiado de h6 a body1 para que el tamaño no compita con el título
+            sx={{
+              textAlign: "center",
+              mb: 3,
+              color: "text.primary", // Un tono más fuerte para mejor contraste
+              maxWidth: "700px", // Un poco más angosto mejora la lectura
+              mx: "auto",
+              lineHeight: 1.8, // Más espacio entre líneas evita el efecto "bloque"
+              fontSize: "1.1rem", // Tamaño cómodo para lectura
+              whiteSpace: "pre-line", // Esto respetará los saltos de línea que pongas en tu base de datos
+            }}
+          >
+            {description}
           </Typography>
+
+          {/* RESEÑA LARGA */}
+          <Typography variant="h4" gutterBottom>
+            Reseña Histórica
+          </Typography>
+
           <Typography variant="body1" paragraph sx={{ lineHeight: 1.8 }}>
-            {introduction || "No hay introducción disponible."}
+            {introduction}
           </Typography>
         </Box>
 

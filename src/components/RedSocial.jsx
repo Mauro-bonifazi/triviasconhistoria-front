@@ -22,7 +22,10 @@ const RedSocial = () => {
       <Link href="https://instagram.com/" target="_blank">
         <InstagramIcon />
       </Link>
-      <Link href="https://linkedin.com/" target="_blank">
+      <Link
+        href="https://www.linkedin.com/in/mauro-bonifazi-820ba738b"
+        target="_blank"
+      >
         <LinkedInIcon />
       </Link>
     </div>

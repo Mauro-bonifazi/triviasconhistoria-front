@@ -56,73 +56,95 @@ function HomePage() {
   return (
     <>
       <Helmet>
-        {/* Título principal del sitio */}
         <title>
-          Trivias con Historia | Aprendé jugando sobre hechos historicos
-          destacados.
+          Trivias con Historia | Aprendé jugando sobre hechos históricos
+          destacados
         </title>
 
-        {/* Descripción clara para buscadores */}
         <meta
           name="description"
           content="Jugá y aprendé con las mejores trivias históricas. Descubrí hechos, personajes y procesos de la historia argentina de forma divertida e interactiva."
         />
 
-        {/* Palabras clave SEO bien definidas */}
         <meta
           name="keywords"
           content="trivias históricas, historia argentina, trivias educativas, trivias de historia, revolución de mayo, independencia, Manuel Belgrano, trivias escolares"
         />
 
-        {/* Autor del proyecto */}
         <meta name="author" content="Mauro Bonifazi" />
 
-        {/* Etiquetas Open Graph (redes sociales) */}
+        {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Trivias con Historia" />
+        <meta
+          property="og:title"
+          content="Trivias con Historia | Aprendé jugando"
+        />
         <meta
           property="og:description"
           content="Poné a prueba tus conocimientos sobre historia argentina. Jugá, aprendé y compartí tus resultados con las mejores trivias históricas."
         />
         <meta
           property="og:image"
-          content="https://triviasconhistoria-front.vercel.app/images/banner-historia.png"
+          content="https://www.triviasconhistoria.com.ar/og-image.jpg"
         />
         <meta
           property="og:url"
-          content="https://triviasconhistoria-front.vercel.app/"
+          content="https://www.triviasconhistoria.com.ar/"
         />
+        <meta property="og:site_name" content="Trivias con Historia" />
 
-        {/* Etiquetas Twitter Card */}
+        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Trivias con Historia" />
+        <meta
+          name="twitter:title"
+          content="Trivias con Historia | Aprendé jugando"
+        />
         <meta
           name="twitter:description"
           content="Jugá y aprendé sobre la historia argentina con trivias interactivas. Ideal para estudiantes, curiosos y docentes."
         />
         <meta
           name="twitter:image"
-          content="https://triviasconhistoria-front.vercel.app/images/banner-historia.png"
+          content="https://www.triviasconhistoria.com.ar/og-image.jpg"
         />
       </Helmet>
 
       <Box>
-        {/* 1. COMPONENTE BANNER */}
+        {/* 1. HERO / BANNER */}
         <Banner />
 
         <Container>
-          {/* 2. COMPONENTE INTRO */}
-          <Box sx={{ my: { xs: 4, md: 6 } }}>
-            <Intro />
+          {/* 🔥 2. TRIVIAS POPULARES (SUBE PRIMERO) */}
+          <Box sx={{ my: { xs: 4, md: 8 } }}>
+            <Typography
+              variant="h5"
+              sx={{ textAlign: "center", mb: 2, color: "text.secondary" }}
+            >
+              Elegí una trivia y empezá a jugar ahora
+            </Typography>
+
+            <Typography
+              variant="h4"
+              component="h2"
+              sx={{ fontWeight: "bold", textAlign: "center", mb: 4 }}
+            >
+              Trivias Populares
+            </Typography>
+
+            {loadingPopular ? (
+              <LoaderList count={3} />
+            ) : (
+              <Feed questions={popularTrivias} />
+            )}
           </Box>
 
-          {/* 3. FORMULARIO DE BÚSQUEDA RÁPIDA */}
+          {/* 🔎 3. BUSCADOR */}
           <Box
             component="form"
             onSubmit={handleSearchSubmit}
             sx={{
               maxWidth: "700px",
-              mx: "auto", // Centra el formulario
+              mx: "auto",
               my: { xs: 4, md: 6 },
               p: { xs: 2, md: 3 },
               border: "1px solid",
@@ -133,11 +155,16 @@ function HomePage() {
           >
             <Typography
               variant="h5"
-              component="h2"
-              sx={{ mb: 2, fontWeight: "bold", textAlign: "center" }}
+              sx={{
+                mb: 2,
+                fontWeight: "bold",
+                textAlign: "center",
+                color: "secondary.main",
+              }}
             >
               ¿Qué trivia buscas hoy?
             </Typography>
+
             <TextField
               id="homepage-search"
               label="Busca por título, tema o palabra clave..."
@@ -145,42 +172,47 @@ function HomePage() {
               fullWidth
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "&:hover fieldset": { borderColor: "accent.main" },
+                  "&.Mui-focused fieldset": { borderColor: "accent.main" },
+                },
+                "& .MuiInputLabel-root.Mui-focused": { color: "accent.main" },
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon />
+                    <SearchIcon sx={{ color: "secondary.main" }} />
                   </InputAdornment>
                 ),
               }}
             />
+
             <Button
               type="submit"
               variant="contained"
               size="large"
               fullWidth
-              sx={{ mt: 2 }}
+              sx={{
+                mt: 2,
+                bgcolor: "accent.main",
+                color: "accent.contrastText",
+                "&:hover": {
+                  bgcolor: "#b8943a",
+                  transform: "scale(1.03)",
+                },
+              }}
             >
               Buscar
             </Button>
           </Box>
 
-          {/* 4. SECCIÓN DE TRIVIAS POPULARES */}
-          <Box sx={{ my: { xs: 4, md: 8 } }}>
-            <Typography
-              variant="h4"
-              component="h2"
-              sx={{ fontWeight: "bold", textAlign: "center", mb: 4 }}
-            >
-              Trivias Populares
-            </Typography>
-            {loadingPopular ? (
-              <LoaderList count={3} />
-            ) : (
-              <Feed questions={popularTrivias} />
-            )}
+          {/* 📖 4. INTRO (BAJA) */}
+          <Box sx={{ my: { xs: 4, md: 6 } }}>
+            <Intro />
           </Box>
 
-          {/* 5. BOTÓN FINAL PARA VER TODO */}
+          {/* 🔘 5. CTA FINAL */}
           <Box
             sx={{
               display: "flex",
@@ -193,6 +225,15 @@ function HomePage() {
               to="/search"
               variant="outlined"
               size="large"
+              sx={{
+                borderColor: "accent.main",
+                color: "accent.main",
+                "&:hover": {
+                  borderColor: "#b8943a",
+                  color: "#b8943a",
+                  bgcolor: "rgba(201,164,69,0.08)",
+                },
+              }}
             >
               Ver todas las trivias
             </Button>

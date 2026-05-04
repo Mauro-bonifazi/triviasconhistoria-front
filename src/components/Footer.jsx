@@ -63,7 +63,7 @@ function Footer() {
         >
           Diseñado y desarrollado por{" "}
           <Link
-            href="https://www.linkedin.com/in/maurobonifazi"
+            href="https://www.linkedin.com/in/mauro-bonifazi-820ba738b"
             target="_blank"
             rel="noopener noreferrer"
             underline="hover"
@@ -83,13 +83,13 @@ function Footer() {
         >
           © {new Date().getFullYear()}{" "}
           <Link
-            href="https://triviasconhistoria.com"
+            href="https://triviasconhistoria.com.ar"
             target="_blank"
             rel="noopener noreferrer"
             underline="hover"
             color="inherit"
           >
-            triviasconhistoria.com
+            triviasconhistoria.com.ar
           </Link>{" "}
           — Todos los derechos reservados.
         </Typography>
